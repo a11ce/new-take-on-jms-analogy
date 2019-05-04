@@ -4,9 +4,12 @@
 
 ### setup/
 
-- `download1gramData.sh`: Downloads all 1grams from Google Books and saves to `data/raw_ngram/`.
-- `filter1gramLength`
+- `setup.sh`: Runs the following two commands, and saves final csv to `data/csv/`
+---
+- `download1gramData.sh`: Downloads and unzips all 1grams from Google Books and saves to `data/raw_ngram/`.
+- `rawToCsv.py`: Converts unzipped 1gram data to word,frequency csv.
 
-### data/
+### data/ (after setup)
 
-- `raw1gram/`: 1gram files as downloaded from Google Books
+- `raw1gram/`: 1gram files as downloaded from Google Books.
+- `csv/`: word,frequency csv files.
