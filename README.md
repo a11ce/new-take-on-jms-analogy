@@ -4,6 +4,7 @@
 
 - `findMutations.py`: Finds possible mutations for a word.
 - `randomPath.py`: Finds a random possible mutation path from a starting word.
+- `findPath.py`: Finds a mutation path between two words.
 - `loadDict.py`: Helper to load csv data as a dict.
 
 ### setup/
