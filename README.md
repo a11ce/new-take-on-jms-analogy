@@ -2,6 +2,10 @@
 
 ## File summary
 
+- `findMutations.py`: Finds possible mutations for a word.
+- `randomPath.py`: Finds a random possible mutation path from a starting word.
+- `loadDict.py`: Helper to load csv data as a dict.
+
 ### setup/
 
 - `setup.sh`: Runs the following two commands, and saves final csv to `data/csv/`
