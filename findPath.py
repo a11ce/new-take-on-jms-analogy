@@ -14,20 +14,23 @@ def main():
         print("No path possible, startWord fitness is higher than endWord fitness")
         return
     path = []
-    recursiveTreeSearch(startWord, endWord, fitDict,path )
+    badArr = []
+    recursiveTreeSearch(startWord, endWord, fitDict,path,badArr )
     print(path)
-def recursiveTreeSearch(root, target, fitDict, pathArr):
+    
+def recursiveTreeSearch(root, target, fitDict, pathArr, badArr):
     pathArr.append(root)
     if(root == target):
         return True
 
     children, _ = findMutations.possibleMutations(fitDict, root)
     for child in children:
-        
-        if recursiveTreeSearch(child, target, fitDict, pathArr):
-            return True
+        if child not in badArr:
+            if recursiveTreeSearch(child, target, fitDict, pathArr, badArr):
+                return True
+
             
-    pathArr.pop(-1)
+    badArr.append(pathArr.pop(-1))
     return False
     
 if __name__ == "__main__":
