@@ -3,11 +3,14 @@
 import os
 import re
 from tqdm import tqdm
-keepYears = ["1800", "1850", "1900","1950","2000"] 
+import sys
+
+#keepYears = ["1800", "1850", "1900","1950","2000"] 
 #keepYears  = ["1950"]
 keepLength = 4
 curWord = "blank"
 curCount = 0
+keepYear = sys.argv[1]
 
 dataDir = "../data/raw1gram/"
 lettersRe = re.compile('[^a-zA-Z]')
@@ -21,7 +24,7 @@ for filename in os.listdir(dataDir):
             for line in inFile:
                 lineSplit = line.split("\t")
                 #print(lineSplit)
-                if(lineSplit[1] in keepYears):
+                if(lineSplit[1] == keepYear):
                     word = lineSplit[0]
                     word = word.split("_")[0]
                     word = word.split(".")[0]
