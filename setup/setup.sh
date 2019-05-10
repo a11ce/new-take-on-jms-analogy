@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-let YEARTOSAVE="1950"
+declare -a YEARSTOSAVE=("1950" "2000" )
 
 ./download1gramData.sh
-echo "Converting data to word,score csv... (this can take about 20 minutes)"
-./rawToCsv.py $YEARTOSAVE  > ../data/csv/$YEARTOSAVE.csv
+
+for i in ${YEARSTOSAVE[@]}; do
+    echo "Converting data to word,score csv for $i... (this can take about 20 minutes)"
+    ./rawToCsv.py $i  > ../data/csv/$i.csv
+done

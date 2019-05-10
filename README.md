@@ -1,5 +1,14 @@
 # Unofficial code related to A New Take on John Maynard Smith's Concept of Protein Space for Understanding Molecular Evolution
 
+## How to use
+
+## Setup
+
+- Edit line 3 of `setup/setup.sh` to include the datasets you want to generate.
+- Run `setup/setup.sh`
+
+(Rest of how to use to come)
+
 ## File summary
 
 - `findMutations.py`: Finds possible mutations for a word.
