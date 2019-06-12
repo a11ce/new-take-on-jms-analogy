@@ -4,14 +4,19 @@ import random
 import sys
 def main():
     fitDict = loadDict.loadDict()
-    curWord = sys.argv[1]
+    startWord = sys.argv[1]
+    print(randomPath(startWord, fitDict))   
+
+def randomPath(startWord, fitDict):
+    curWord = startWord
+    path = []
     while True:
         goodPos, badPos = findMutations.possibleMutations(fitDict, curWord)
-        print(curWord + ": " + str(goodPos))
+        path.append(curWord)
         if (len(goodPos) == 0):
-            print("END OF SEQ")
-            break
-        curWord = random.choice(list(goodPos.keys()))     
+            return path
+        curWord = random.choice(list(goodPos.keys()))
+    
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 def loadDict():
     fitDict = {}
-    with open("data/csv/fitness.csv") as infile:
+    with open("data/csv/2000.csv") as infile:
         for line in infile:
             splitLine = line.split(",")
             

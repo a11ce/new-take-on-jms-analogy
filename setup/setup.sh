@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-declare -a YEARSTOSAVE=("1950" "2000" )
+declare -a YEARSTOSAVE=("2008" )
 
 ./download1gramData.sh
 
