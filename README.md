@@ -22,6 +22,7 @@
 ---
 - `download1gramData.sh`: Downloads and unzips all 1grams from Google Books and saves to `data/raw_ngram/`.
 - `rawToCsv.py`: Converts unzipped 1gram data to word,frequency csv.
+- `makeFiltered.py`: Makes a new CSV with only words over a defined cutoff, for use in games to reduce accepted non-words.
 
 ### data/ (after setup)
 
