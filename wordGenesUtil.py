@@ -28,6 +28,23 @@ def randomPathWithLength(startWord, length):
 
 def randomWord():
     return random.choice(list(fitDict.keys()))
+
+def validatePath(path):
+    for pairInd in range(len(path)-1):
+        w1 = path[pairInd]
+        w2 = path[pairInd+1]
+        
+        if not w1 in fitDict:
+            print(w1 + " not in dict")
+            return False
+            
+        if sum( w1[i] != w2[i] for i in range(len(w1)) ) != 1:
+            print(str(w1) + " and " + str(w2) +" bad pair")
+            return False
+
+        
+
+    return True
     
 if __name__ == "__main__":
     main()
