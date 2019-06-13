@@ -1,6 +1,9 @@
+import os
+
 def loadDict():
     fitDict = {}
-    with open("data/csv/2000.csv") as infile:
+    location = os.path.dirname(os.path.realpath(__file__))
+    with open(location + "/data/csv/filtered-2000.csv") as infile:
         for line in infile:
             splitLine = line.split(",")
             
