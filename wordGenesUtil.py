@@ -42,9 +42,16 @@ def validatePath(path):
             print(str(w1) + " and " + str(w2) +" bad pair")
             return False
 
-        
-
     return True
+    
+def sortList(arr):
+
+    tempDict = {}
+    for word in arr:
+        tempDict[word] = fitDict[word]
+
+    return sorted(tempDict, key=tempDict.get)
+    
     
 if __name__ == "__main__":
     main()
