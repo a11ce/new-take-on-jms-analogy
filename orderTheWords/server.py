@@ -5,6 +5,7 @@ import threading
 import time
 import os
 import random
+import time
 
 import wordGenesUtil as util
 
@@ -14,6 +15,7 @@ sortedList = []
 gameStarted = False
 gameEnded = False
 answers = {}
+timeTaken = {}
 
 class ThreadedServer(object):
     def __init__(self, host, port):
@@ -33,6 +35,7 @@ class ThreadedServer(object):
             
     def listenToClient(self, client, address):
         try:
+            
             size = 1024
             print("Client connected from " + str(address))
             clientNum = len(clients)
@@ -44,7 +47,9 @@ class ThreadedServer(object):
                     continue
                 client.send(b"Other player connected!\n\n")
                 beginGame()
-
+                
+            startTime = time.time()
+            
             winner = False
                 
             while True:
@@ -52,6 +57,7 @@ class ThreadedServer(object):
                 answer = client.recv(1024)
                 ansPath = answer.decode("utf-8").rstrip().split(" ")
                 answers[clientNum] = ansPath
+                timeTaken[clientNum] = time.time() - startTime
                 if len(answers) == 2:
                     endGame()
                 else:
@@ -85,19 +91,22 @@ def endGame():
 
     
     for key, val in answers.items():
-        score = 0
+        wordsCorrect = 0
         for i in range(len(val)):
             if val[i] == sortedList[i]:
-                score += 1
+                wordsCorrect += 1
+                
+        score = wordsCorrect / timeTaken[key]
         scores[key] = score
-
+        print("player " + str(key) + " got "+  str(wordsCorrect) + " words correct in " + str(timeTaken[key]) + " seconds so their score is " + str(score))
+        
     winnerNum = None
     if scores[0] > scores[1]:
         winnerNum = 0
     elif scores[1] > scores[0]:
         winnerNum = 1
     else:
-        sendToAll("Tie!")
+        sendToAll("Tie!\n")
 
     if winnerNum is not None:
         clients[winnerNum    ].send(b"You won!\n")
@@ -123,7 +132,7 @@ if __name__ == "__main__":
     
     for word in util.sortList(words)[::-1]:
         sortedList.append(word)
-    print(sortedList)
+    #print(sortedList)
         
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
