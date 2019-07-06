@@ -1,6 +1,6 @@
 import random
 
-import randomPath
+import wordGenesUtil as util
 
 def main():
 
@@ -14,8 +14,8 @@ def main():
     print("You got " + str(corCount) + "/15")
     
 def askOne():
-    seedWord = randomPath.randomWord()
-    path = randomPath.randomPathWithLength(seedWord,4)
+    seedWord = util.randomWord()
+    path = util.randomPathWithLength(seedWord,4)
     corWord = path[-1]
     inCor   = path[-2]
     
