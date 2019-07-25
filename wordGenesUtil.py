@@ -29,6 +29,9 @@ def randomPathWithLength(startWord, length):
 def randomWord():
     return random.choice(list(fitDict.keys()))
 
+def scoreOfWord(word):
+    return fitDict[word]
+
 def validatePath(path):
     for pairInd in range(len(path)-1):
         w1 = path[pairInd]
