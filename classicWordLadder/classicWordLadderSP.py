@@ -1,0 +1,23 @@
+import sys
+sys.path.append("..")
+import singlePlayer
+import random
+import wordGenesUtil as util
+
+def generateWords():
+    startWord = util.randomWord()
+    endWord = util.randomPathWithLength(startWord, 5)[-1]
+    words = (startWord, endWord)
+    return words
+
+def scoring(words, ansPath, timeTaken):
+    if (util.validatePath(ansPath) and ansPath[0] == words[0] and ansPath[-1] == words[-1]):
+        return int((30 - timeTaken) * 100)
+    else:
+        print("Invalid path!")
+        return float('inf') * -1
+
+def displayWords(words):
+    print(words[0] + " TO " + words[1] + "\n> ", end = "")
+
+singlePlayer.runGame(generateWords, scoring, displayWords, "Complete the word ladder as fast as possible")
