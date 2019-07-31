@@ -110,7 +110,7 @@ def scorePlayer(answerPath, timeTaken):
     score4 = hillScore(answerPath)
     
         
-    return score4 / timeTaken * len(answerPath)
+    return score4 / (timeTaken * len(answerPath))
 
 def hillScore(path):
     hillScore = 0
