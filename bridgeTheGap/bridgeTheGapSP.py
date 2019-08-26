@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..")
-import singlePlayer
+import singleplayer
 import random
 import wordGenesUtil as util
 
