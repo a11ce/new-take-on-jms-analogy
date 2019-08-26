@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Word Genes</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Word Genes</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#games"><strong><em>Games</em></strong></a><ul>
+<li><a href="#classic-word-ladder">Classic Word Ladder</a></li>
+<li><a href="#bridge-the-gap">Bridge the Gap</a></li>
+<li><a href="#order-the-words">Order the Words</a></li>
+<li><a href="#quiz-game">Quiz Game</a></li>
+</ul></li>
+<li><a href="#dataset-generation"><strong><em>Dataset Generation</em></strong></a></li>
+<li><a href="#utility-files-and-functions"><strong><em>Utility Files and Functions</em></strong></a><ul>
+<li><a href="#loaddict.py"><code>loadDict.py</code></a></li>
+<li><a href="#findpath.py"><code>findPath.py</code></a></li>
+<li><a href="#findmutations.py"><code>findMutations.py</code></a></li>
+<li><a href="#wordgenesutil.py"><code>wordGenesUtil.py</code></a></li>
+</ul></li>
+<li><a href="#game-implementation"><strong><em>Game Implementation</em></strong></a></li>
+</ul>
+</nav>
+<h1 id="games"><strong><em>Games</em></strong></h1>
+<h2 id="classic-word-ladder">Classic Word Ladder</h2>
+<p>Word ladder, invented by Lewis Carroll, is a puzzle in which a player is given two words. The player must transform one word to the other by means of single letter substitution, where all substitutions must result in a word.</p>
+<p>One of Carroll’s examples is as follows: <code>head  heal  teal  tell  tall  tail</code></p>
+<p>Notably different from our randomly generated ladders, Carroll’s start and end words had some sort of connection, used in phrasing the puzzle. One of the few three-letter prompts was “Evolve MAN from APE.”</p>
+<p>The original method of scoring was published in Vanity Fair as follows:</p>
+<p>“Each competitor, who completes the Chain with the least possible number of Links, will receive the full number of marks assigned; and each who uses more than the least possible number of Links will lose a mark for every additional Link.”</p>
+<p>In order to incorporate the time taken in our scoring system, we use the following function:</p>
+<p><code>score(timeTaken, path) = ((90-timeTaken) * 100) / (length(path)*2)</code></p>
+<p>The constants (and the function itself) are entirely arbitrary and chosen to give reasonable changes when time and length vary.</p>
+<h2 id="bridge-the-gap">Bridge the Gap</h2>
+<p>This mode is similar to Classic Word Ladder, except for the scoring, which is as follows:</p>
+<p>The hill score of a path (<code>hillScore(path)</code>) is the sum of the fitness differences between each adjacent pair of words in the path with negative differences doubled.</p>
+<p><code>score(timeTaken, path) = (hillScore(path) / (timeTaken * length(path)) / 10</code></p>
+<p>The score function is again arbitrary. The hill score rewards uphill paths in order to mirror evolution.</p>
+<h2 id="order-the-words">Order the Words</h2>
+<p>In Order the Words, the player is given four words in a random order and must order them from most to least common as fast as possible.</p>
+<p>Score is given by <code>(wordsCorrect / timeTaken) * 1000</code>, where wordsCorrect is given by the count of when answerList[i] is the same as sortedList[i] for i, each index in the lists.</p>
+<h2 id="quiz-game">Quiz Game</h2>
+<p>There is also a singplayer-only quiz game not defined in the Word Genes spec. It prints two words and asks the player to enter the more common one, five times. At the end, it prints how many the player answered correctly.</p>
+<h1 id="dataset-generation"><strong><em>Dataset Generation</em></strong></h1>
+<p>Dataset generation is done in the following steps, all in <code>setup.sh</code>:</p>
+<ol type="1">
+<li>Download and unpack 1gram data from Google.</li>
+<li>Convert the 1gram data to word,frequency CSV for each specified year.
+<ul>
+<li>Loop through each line in each file and:
+<ul>
+<li>If the line contains data for the specified year and the word (stripped of POS information) is the correct length, increment or initialize its value in a dictionary. This is done because data for a single word may be on multiple lines.</li>
+</ul></li>
+<li>Write the dictionary to a CSV</li>
+</ul></li>
+<li>Filter the created CSV by copying all lines where the frequency is over 800 to a new CSV. This value is selected to keep approximately the top 10% of words.</li>
+</ol>
+<h1 id="utility-files-and-functions"><strong><em>Utility Files and Functions</em></strong></h1>
+<h2 id="loaddict.py"><code>loadDict.py</code></h2>
+<p>This file contains one function, <code>loadDict()</code>, which loads the <code>word:fitness</code> data from a hardcoded CSV (currently <code>/data/csv/filtered-2000.csv</code>) and returns it as a python dict.</p>
+<h2 id="findpath.py"><code>findPath.py</code></h2>
+<p>This file is not used anywhere, and is run with <code>python3 findPath.py startWord endWord</code>. It will look for a single uphill path from startWord to endWord, which does not always exist. It also does not always find the shortest path. If an empty <code>[]</code> is printed, there is no uphill path possible, even though the end word is more common than the start word.</p>
+<h2 id="findmutations.py"><code>findMutations.py</code></h2>
+<p>This file contains one function to find the possible mutations one step away from a word. It returns two dicts, both of the format <code>word:fitness</code>. goodPos is a dict of uphill possible words, and badPos is of downhill words. It is used in <code>wordGenesUtil</code>.</p>
+<h2 id="wordgenesutil.py"><code>wordGenesUtil.py</code></h2>
+<p>This is the only utility file meant to be imported.</p>
+<p>It contains the following functions:</p>
+<h4 id="randompathstartword"><code>randomPath(startWord)</code></h4>
+<p>Returns an uphill path starting at startWord and ending at a local maximum word.</p>
+<h4 id="randompathwithlengthstartword-minlength"><code>randomPathWithLength(startWord, minLength)</code></h4>
+<p>Returns a path from randomPath with a length greater or equal to minLength. Known issue: If no path long enough exists, it will result in an infinite loop.</p>
+<h4 id="randomword"><code>randomWord()</code></h4>
+<p>Returns a random word from the dataset.</p>
+<h4 id="scoreofwordword"><code>scoreOfWord(word)</code></h4>
+<p>Returns the fitness score of the given word.</p>
+<h4 id="validatepathpath"><code>validatePath(path)</code></h4>
+<p>Returns true if the path is valid: - Each word in the path is in the dataset - Each word except the first can be made by changing one letter of the previous word.</p>
+<p>or false otherwise.</p>
+<h4 id="sortlistwordlist"><code>sortList(wordList)</code></h4>
+<p>Returns the given list sorted from least to most common.</p>
+<h1 id="game-implementation"><strong><em>Game Implementation</em></strong></h1>
+<p>Each game is defined as three functions and a string. <code>generateWords()</code> returns a list of words to act as a ‘prompt’. <code>scoring(promptWords, ansList, timeTaken)</code> returns a score based on the prompt words, answer words, and time taken. <code>displayWords(words)</code> returns a formatted version of the prompt words to be shown to the player. The string is the instructions to be shown to the player.</p>
+<p>Defining games in this way is done to minimize redundant code and allow new games to be easily added.</p>
+<p>Both the singleplayer and multiplayer game runner function take these four items, run the game, and print the score. In multiplayer mode, the game is run as an interactive TCP server on port 1224 and waits for both players to connect before starting.</p>
+</body>
+</html>
