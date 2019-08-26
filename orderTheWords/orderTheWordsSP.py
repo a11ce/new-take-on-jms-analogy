@@ -1,6 +1,7 @@
 import sys
 sys.path.append("..")
 import singleplayer
+import multiplayer
 import random
 import wordGenesUtil as util
 
@@ -29,4 +30,9 @@ def displayWords(sortedList):
 
     return returnString
 
-singlePlayer.runGame(generateList, scoring, displayWords, "Order the words from most to least common")
+instructions = "Order the words from most to least common"
+
+if len(sys.argv) > 1 and sys.argv[1] == "-s":
+    multiplayer.runGame(generateWords, scoring, displayWords, instructions)
+else:
+    singleplayer.runGame(generateWords, scoring, displayWords, instructions)

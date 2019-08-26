@@ -1,6 +1,7 @@
 import sys
 sys.path.append("..")
 import singleplayer
+import multiplayer
 import random
 import wordGenesUtil as util
 
@@ -20,4 +21,9 @@ def scoring(words, ansPath, timeTaken):
 def displayWords(words):
     return str(words[0] + " TO " + words[1] + "\n> ")
 
-singlePlayer.runGame(generateWords, scoring, displayWords, "Complete the word ladder as fast as possible")
+instructions = "Complete the word ladder as fast as possible"
+
+if len(sys.argv) > 1 and sys.argv[1] == "-s":
+    multiplayer.runGame(generateWords, scoring, displayWords, instructions)
+else:
+    singleplayer.runGame(generateWords, scoring, displayWords, instructions)
