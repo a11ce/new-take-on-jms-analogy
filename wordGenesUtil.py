@@ -23,7 +23,7 @@ def randomPath(startWord):
 def randomPathWithLength(startWord, length):
     while True:
         path = randomPath(startWord)
-        if (len(path) > length):
+        if (len(path) >= length):
             return path
 
 def randomWord():
@@ -47,10 +47,10 @@ def validatePath(path):
 
     return True
     
-def sortList(arr):
+def sortList(wordList):
 
     tempDict = {}
-    for word in arr:
+    for word in wordList:
         tempDict[word] = fitDict[word]
 
     return sorted(tempDict, key=tempDict.get)

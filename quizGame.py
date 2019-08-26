@@ -7,11 +7,11 @@ def main():
     corCount = 0
     print("Type the more common word\n")
     print()
-    for _ in range(15):
+    for _ in range(5):
         if(askOne()):
             corCount += 1
         print()
-    print("You got " + str(corCount) + "/15")
+    print("You got " + str(corCount) + "/5")
     
 def askOne():
     seedWord = util.randomWord()

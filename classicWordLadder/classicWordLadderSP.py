@@ -12,7 +12,7 @@ def generateWords():
 
 def scoring(words, ansPath, timeTaken):
     if (util.validatePath(ansPath) and ansPath[0] == words[0] and ansPath[-1] == words[-1]):
-        return int((30 - timeTaken) * 100)
+        return int((90 - timeTaken) * 100 / (len(ansPath)*2))
     else:
         print("Invalid path!")
         return float('inf') * -1
