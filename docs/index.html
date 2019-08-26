@@ -39,6 +39,7 @@
 </ul>
 </nav>
 <h1 id="games"><strong><em>Games</em></strong></h1>
+<p>To play the games, run <code>python3 gameName.py [-s]</code>. Add <code>-s</code> to run a server or omit it for singleplayer. In singleplayer, the player may enter a shared game code. If two players enter the same code, they will be given the same prompt so scores may be compared fairly. If the player does not intend to compare their score, they may place a medium sized rock on their numpad a few times.</p>
 <h2 id="classic-word-ladder">Classic Word Ladder</h2>
 <p>Word ladder, invented by Lewis Carroll, is a puzzle in which a player is given two words. The player must transform one word to the other by means of single letter substitution, where all substitutions must result in a word.</p>
 <p>One of Carroll’s examples is as follows: <code>head  heal  teal  tell  tall  tail</code></p>
@@ -96,7 +97,7 @@
 <h4 id="sortlistwordlist"><code>sortList(wordList)</code></h4>
 <p>Returns the given list sorted from least to most common.</p>
 <h1 id="game-implementation"><strong><em>Game Implementation</em></strong></h1>
-<p>Each game is defined as three functions and a string. <code>generateWords()</code> returns a list of words to act as a ‘prompt’. <code>scoring(promptWords, ansList, timeTaken)</code> returns a score based on the prompt words, answer words, and time taken. <code>displayWords(words)</code> returns a formatted version of the prompt words to be shown to the player. The string is the instructions to be shown to the player.</p>
+<p>Each game is defined as three functions and a string. <code>generateWords()</code> returns a list of words to act as a prompt for the player and to be used in scoring. <code>scoring(promptWords, ansList, timeTaken)</code> returns a score based on the prompt words, answer words, and time taken. <code>displayWords(words)</code> returns a formatted version of the prompt words to be shown to the player. The string <code>instructions</code> is the instructions to be shown to the player.</p>
 <p>Defining games in this way is done to minimize redundant code and allow new games to be easily added.</p>
 <p>Both the singleplayer and multiplayer game runner function take these four items, run the game, and print the score. In multiplayer mode, the game is run as an interactive TCP server on port 1224 and waits for both players to connect before starting.</p>
 </body>

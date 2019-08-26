@@ -2,10 +2,12 @@
 
 # ***Games***
 
+To play the games, run `python3 gameName.py [-s]`. Add `-s` to run a server or omit it for singleplayer. In singleplayer, the player may enter a shared game code. If two players enter the same code, they will be given the same prompt so scores may be compared fairly. If the player does not intend to compare their score, they may place a medium sized rock on their numpad a few times.
+
 ## Classic Word Ladder
 Word ladder, invented by Lewis Carroll, is a puzzle in which a player is given two words. The player must transform one word to the other by means of single letter substitution, where all substitutions must result in a word. 
 
-One of Carroll's examples is as follows:
+One of Carroll's examples is as follows: 
 ```head 
 heal 
 teal 
