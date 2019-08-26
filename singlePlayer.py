@@ -24,7 +24,7 @@ def runGame(generator, scoring, displayPrompt, instructions):
     
     startTime = time.time()
                 
-    displayPrompt(promptWords)    
+    print(displayPrompt(promptWords), end = "")
 
     answer = input()
     ansPath = answer.rstrip().split(" ")

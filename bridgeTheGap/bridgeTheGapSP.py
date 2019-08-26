@@ -29,6 +29,6 @@ def scoring(words, ansPath, timeTaken):
 
 
 def displayWords(words):
-    print(words[0] + " TO " + words[1] + "\n> ", end = "")
+    return str(words[0] + " TO " + words[1] + "\n> ")
 
 singlePlayer.runGame(generateWords, scoring, displayWords, "Complete the word ladder as fast as possible and also mostly uphill")

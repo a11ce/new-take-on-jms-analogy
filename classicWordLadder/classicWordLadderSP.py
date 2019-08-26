@@ -18,6 +18,6 @@ def scoring(words, ansPath, timeTaken):
         return float('inf') * -1
 
 def displayWords(words):
-    print(words[0] + " TO " + words[1] + "\n> ", end = "")
+    return str(words[0] + " TO " + words[1] + "\n> ")
 
 singlePlayer.runGame(generateWords, scoring, displayWords, "Complete the word ladder as fast as possible")

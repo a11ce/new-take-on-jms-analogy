@@ -22,8 +22,11 @@ def scoring(sortedList, ansPath, timeTaken):
     return score
 
 def displayWords(sortedList):
+    returnString = ""
     for word in random.sample(sortedList, len(sortedList)):
-        print(str(word), end = " ")
-    print("\n> ", end = "")
+        returnString += word + " "
+    returnString += "\n> "
+
+    return returnString
 
 singlePlayer.runGame(generateList, scoring, displayWords, "Order the words from most to least common")
