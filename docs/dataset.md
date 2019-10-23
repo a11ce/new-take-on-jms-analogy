@@ -1,4 +1,4 @@
-# ***Dataset Generation***
+# ***Setup/Dataset Generation***
 
 Dataset generation is done in the following steps, all in `setup.sh`:
 
