@@ -5,7 +5,7 @@ import multiplayer
 import random
 import wordGenesUtil as util
 
-def generateList():
+def generateWords():
     words = []
     sortedWords = []
     for _ in range(4):
